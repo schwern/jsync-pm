@@ -179,15 +179,17 @@ sub _resolve_from_tag {
     return $1;
 }
 
+# Set of leading characters which must be escaped
+my $Escape_Set = qr{[\!\&\*\%]};
 sub _escape {
     my $string = shift;
-    $string =~ s/^(\.*[\!\&\*\%])/.$1/;
+    $string =~ s/^(\.*$Escape_Set)/.$1/o;
     return $string;
 }
 
 sub _unescape {
     my $string = shift;
-    $string =~ s/^\.(\.*[\!\&\*\%])/$1/;
+    $string =~ s/^\.(\.*$Escape_Set)/$1/o;
     return $string;
 }
 
