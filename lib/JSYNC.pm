@@ -147,7 +147,8 @@ sub _construct {
             bless $node, $class;
         }
         for my $k (keys %$repr) {
-            $node->{$k} = _construct($repr->{$k});
+            my $safe_k = _unescape($k);
+            $node->{$safe_k} = _construct($repr->{$k});
         }
     }
     elsif ($kind eq 'array') {
